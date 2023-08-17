@@ -10,6 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.notificationlearning.Screens.NotificationShowingScreen
+import com.example.notificationlearning.navigation.setUpNavGraph
 import com.example.notificationlearning.ui.theme.NotificationLearningTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +27,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NotificationShowingScreen(context = this)
+                    val navCOntroller = rememberNavController()
+                    setUpNavGraph(navcontroller = navCOntroller, context =this)
                 }
             }
         }

@@ -3,13 +3,17 @@ package com.example.notificationlearning.DI
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import com.example.notificationlearning.MainActivity
 import com.example.notificationlearning.R
+import com.example.notificationlearning.navigation.MY_ARG
+import com.example.notificationlearning.navigation.MY_URI
 import com.example.notificationlearning.receiver.BroadcastReceive
 import dagger.Module
 import dagger.Provides
@@ -36,8 +40,11 @@ class NotificationModule {
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
-        val clickIntent = Intent(context,MainActivity::class.java)
-        val PendingIntents = PendingIntent.getBroadcast(context,1,clickIntent,PendingIntent.FLAG_IMMUTABLE)
+        val clickIntent = Intent(Intent.ACTION_VIEW,"$MY_URI/$MY_ARG=Coming from Notification".toUri(),context,MainActivity::class.java)
+        val PendingIntents: PendingIntent = TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(clickIntent)
+            getPendingIntent(1,PendingIntent.FLAG_IMMUTABLE)
+        }
         return NotificationCompat.Builder(context,"Main Channel ID")
             .setContentTitle("Welcome")
             .setContentText("Welcome to my Twitter")

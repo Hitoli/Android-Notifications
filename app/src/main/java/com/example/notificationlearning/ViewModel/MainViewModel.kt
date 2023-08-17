@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(private val notificationBuilder: Notific
 
     fun updateSimpleNotification(context: Context){
         if (ActivityCompat.checkSelfPermission(
-                context,
+                context, 
                 Manifest.permission.POST_NOTIFICATIONS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
