@@ -26,6 +26,12 @@ Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Cent
     Button(onClick = {mainViewModel.cancelSimpleNotification()}) {
         Text(text = "Cancel Notification")
     }
+    Button(onClick = {mainViewModel.showProgress(context = context)}) {
+        Text(text = "Progress Notification")
+    }
+    Button(onClick = {mainViewModel.replySimpleNotification("")}) {
+        Text(text = "reply Notification")
+    }
     Button(onClick = {navcontroller.navigate(
         Screen.Details.passArgument(
             message = "Coming from Notification Showing Screen"
