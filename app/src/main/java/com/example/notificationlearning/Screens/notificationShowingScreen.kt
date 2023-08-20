@@ -29,7 +29,7 @@ Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Cent
     Button(onClick = {mainViewModel.showProgress(context = context)}) {
         Text(text = "Progress Notification")
     }
-    Button(onClick = {mainViewModel.replySimpleNotification("")}) {
+    Button(onClick = {mainViewModel.replySimpleNotification(context = context)}) {
         Text(text = "reply Notification")
     }
     Button(onClick = {navcontroller.navigate(

@@ -2,6 +2,7 @@ package com.example.notificationlearning.ViewModel
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import com.example.notificationlearning.DI.NotificationModule
+import com.example.notificationlearning.receiver.BroadcastReceive
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
@@ -43,10 +45,29 @@ class MainViewModel @Inject constructor(
         }
         notificationManagerCompat.notify(314,notificationBuilder.build())
     }
-    fun replySimpleNotification(input:String){
+    fun replySimpleNotification(context: Context){
         val person = Person.Builder().setName("Me").build()
+        val intent = Intent(context, BroadcastReceive::class.java)
+        val input = intent.getStringExtra("Input")
         val message = NotificationCompat.MessagingStyle.Message(input,System.currentTimeMillis(),person)
         val notificaitonStyle = NotificationCompat.MessagingStyle(person).addMessage(message)
+        NotificationCompat.MessagingStyle(person).addMessage(message)
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        notificationManagerCompat.notify(314,notificationThirdBuilder.setStyle(notificaitonStyle).setStyle(null).build()
+        )
 
     }
 

@@ -36,7 +36,8 @@ class BroadcastReceive:BroadcastReceiver() {
         val remoteInput = RemoteInput.getResultsFromIntent(intent!!)
         if(remoteInput!=null){
             val input = remoteInput.getCharSequence(RESULT_KEY).toString()
-
+            val intent = Intent(context,MainViewModel::class.java)
+            intent.putExtra("Input",input)
         }
     }
 }
